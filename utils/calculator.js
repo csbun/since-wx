@@ -6,7 +6,7 @@ export function toMidnightTimeStamp(date) {
 
 export function daysBetween(dTo, dFrom = new Date()) {
   // return (toMidnightTimeStamp(dFrom) - toMidnightTimeStamp(dTo)) / A_DAY_MS;
-  return Math.floor(moment.duration(dFrom - dTo).asDays());
+  return Math.floor(moment.duration(toDate(dFrom) - toDate(dTo)).asDays());
 }
 
 export function daysSinceByItem(item) {
@@ -17,6 +17,12 @@ export function daysSinceByItem(item) {
 //   return daysBetween(dTo, Date.now());
 // }
 
+const FORMAT_STRING = 'YYYY-MM-DD';
+
 export function formatDate(date) {
-  return moment(date).format('YYYY-MM-DD');
+  return moment(date).format(FORMAT_STRING);
+}
+
+export function toDate(str) {
+  return moment(str);
 }

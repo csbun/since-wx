@@ -16,8 +16,8 @@
           <view class="weui-label">Start Date</view>
         </view>
         <view class="weui-cell__bd">
-          <picker class="weui-btn" mode="date" value="{{startDate}}" end="{{today}}" bindchange="onChangeStartDate">
-            <input class="weui-input" disabled type="text" value="{{startDate}}" />
+          <picker class="weui-btn" mode="date" value="{{date}}" end="{{today}}" bindchange="onChangeDate">
+            <input class="weui-input" disabled type="text" value="{{date}}" />
           </picker>
         </view>
       </view>
@@ -40,7 +40,7 @@
           <view class="weui-label">End Date</view>
         </view>
         <view class="weui-cell__bd">
-          <picker class="weui-btn" mode="date" value="{{endDate}}" start="{{startDate}}" end="{{today}}" bindchange="onChangeEndDate">
+          <picker class="weui-btn" mode="date" value="{{endDate}}" start="{{date}}" end="{{today}}" bindchange="onChangeEndDate">
             <input class="weui-input" disabled type="text" value="{{endDate}}" />
           </picker>
         </view>

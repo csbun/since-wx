@@ -10,10 +10,21 @@
 .banner {
   background: #61AFEF;
   color: #fff;
-  min-height: 250;
+  min-height: 140px;
+  padding: 10px 40px 20px;
+}
+.banner .page__title {
+  text-align: center;
+}
+.banner .text-lg {
+  font-size: 60px;
+}
+.banner .text-xs {
+  font-size: 12px;
 }
 .banner .page__desc {
-  color: #eee;
+  text-align: center;
+  color: #fff;
 }
 
 .list-view {
@@ -24,6 +35,11 @@
 .list-view scroll-view {
   flex: 1;
 }
+.list-view .weui-cell {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .list-view .weui-cell:first-child::before {
   display: block;
 }
@@ -31,6 +47,14 @@
   top: auto;
   bottom: 0;
   left: 0;
+}
+.list-view .list-item-day {
+  width: 60px;
+  font-size: 35px;
+  margin-right: 10px;
+}
+.list-view .list-item-day .text-xs {
+  font-size: 12px;
 }
 
 .bottom {

@@ -1,5 +1,5 @@
 import { formatDate } from '../../utils/calculator';
-import { push } from '../../utils/event_store';
+import { get, update, push } from '../../utils/event_store';
 
 let LAST_ERROR_TIMEOUT = null;
 
@@ -9,23 +9,29 @@ Page({
   data: {
     today: formatDate(new Date()),
     // title: '',
-    startDate: formatDate(new Date()),
+    date: formatDate(new Date()),
     // endDate: '',
     stopTracking: false,
     error: '',
   },
-  onLoad: function () {
-    // init data
+  onLoad: function (option) {
+    const id = option.id;
+    const eventItem = get(id);
+    if (eventItem) {
+      this.setData(eventItem);
+    }
   },
 
-  //
+  // 点击保存
   onTapSave: function(e) {
     try {
       const data = Object.assign({}, this.data, e.detail.value);
-      push(data);
-      wx.navigateTo({
-        url: '../index/index'
-      });
+      if (data.id) {
+        update(data);
+      } else {
+        push(data);
+      }
+      wx.navigateBack();
     } catch (e) {
       clearTimeout(LAST_ERROR_TIMEOUT);
       this.setData({
@@ -39,9 +45,9 @@ Page({
     }
   },
   // change start date
-  onChangeStartDate: function(e) {
-    const startDate = e.detail.value || formatDate(new Date());
-    this.setData({ startDate });
+  onChangeDate: function(e) {
+    const date = e.detail.value || formatDate(new Date());
+    this.setData({ date });
   },
   // change end date
   onChangeEndDate: function(e) {
@@ -53,6 +59,4 @@ Page({
     const stopTracking = e.detail.value.indexOf('stopTracking') >= 0;
     this.setData({ stopTracking });
   },
-
-
-})
+});

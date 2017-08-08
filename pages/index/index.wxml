@@ -1,21 +1,31 @@
 <view class="container page">
-  <view class="banner page__hd">
-    <view class="page__title">List</view>
-    <view class="page__desc">列表</view>
+  <view class="banner">
+    <view wx:if="{{selectItem}}">
+      <view class="page__title">
+        <template is="daysSince" data="{{...selectItem}}"/>
+      </view>
+      <view class="page__desc">{{selectItem.title}}</view>
+      <view class="page__desc">
+        <template is="sinceTill" data="{{...selectItem}}"/>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="page__title">Press `Add` and enjoy!</view>
+    </view>
   </view>
   <view class="list-view">
     <scroll-view scroll-y>
       <block wx:for="{{eventList}}" wx:for-item="eventItem" wx:key="{{eventItem.id}}">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-          <view class="weui-cell__hd">
-            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="onTabEventItem" bindlongtap="onTapEditItem" data-item="{{eventItem}}">
+          <view class="weui-cell__hd list-item-day">
+            <template is="daysSince" data="{{...eventItem}}"/>
           </view>
-          <view class="weui-cell__bd">{{eventItem.title}}</view>
           <view class="weui-cell__bd">
-            <text>Since {{eventItem.startDate}}</text>
+            <view>{{eventItem.title}}</view>
+            <template is="sinceTill" data="{{...eventItem}}"/>
           </view>
-          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
+          <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
+        </view>
       </block>
     </scroll-view>
   </view>
@@ -23,3 +33,15 @@
     <button type="default" bindtap="onTapAdd">Add</button>
   </view>
 </view>
+
+<template name="daysSince">
+  <text class="text-lg">{{daysSince}}</text>
+  <text class="text-xs">D</text>
+</template>
+
+<template name="sinceTill">
+  <view>
+    Since {{date}}
+    <text wx:if="{{stopTracking}}">/ Till {{endDate}}</text>
+  </view>
+</template>
