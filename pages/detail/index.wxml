@@ -1,4 +1,4 @@
-<view class="page">
+<view class="container">
   <form bindsubmit="onTapSave" class="page__bd">
     <view class="weui-cells__title">
       <text wx:if="{{id}}">Edit</text>
@@ -20,7 +20,7 @@
         </view>
         <view class="weui-cell__bd">
           <picker class="weui-btn" mode="date" value="{{date}}" end="{{today}}" bindchange="onChangeDate">
-            <input class="weui-input" disabled type="text" value="{{date}}" />
+            <view class="weui-input">{{date}}</view>
           </picker>
         </view>
       </view>
@@ -44,7 +44,7 @@
         </view>
         <view class="weui-cell__bd">
           <picker class="weui-btn" mode="date" value="{{endDate}}" start="{{date}}" end="{{today}}" bindchange="onChangeEndDate">
-            <input class="weui-input" disabled type="text" value="{{endDate}}" />
+            <view class="weui-input">{{endDate}}</view>
           </picker>
         </view>
       </view>

@@ -2,7 +2,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: space-between;
   box-sizing: border-box;
 }
@@ -34,9 +33,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .list-view scroll-view {
   flex: 1;
+  height: 100%;
 }
 .list-view .weui-cell {
   padding-top: 0;
@@ -59,9 +60,11 @@
   transition: transform 300ms ease-out;
 }
 .list-view .weui-cell .list-item .list-item-main {
-  display: -webkit-box;
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: 5px 0;
 }
 .list-view .weui-cell .list-item .list-item-buttons {
   width: 160px;
@@ -72,10 +75,11 @@
   margin-left: 15px;
 }
 .list-view .weui-cell .list-item .list-item-buttons view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
   height: 100%;
-  line-height: 56px;
-  text-align: center;
   color: #fff;
 }
 .list-view .weui-cell .list-item .list-item-buttons .edit {
@@ -100,7 +104,7 @@
  * 底部
  */
 .bottom {
-  height: 46px;
+  margin-top: 8px;
 }
 
 /*

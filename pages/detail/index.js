@@ -54,9 +54,10 @@ Page({
     const endDate = e.detail.value || formatDate(new Date());
     this.setData({ endDate });
   },
-
+  // change stopTracking
   onChangeStopTracking: function(e) {
     const stopTracking = e.detail.value.indexOf('stopTracking') >= 0;
-    this.setData({ stopTracking });
+    const endDate = stopTracking ? formatDate(new Date()) : '';
+    this.setData({ stopTracking, endDate });
   },
 });

@@ -54,6 +54,14 @@ Page({
     this.setEventList();
   },
 
+  // 点击 item
+  onTapSelectItem(e) {
+    const { item } = e.currentTarget.dataset;
+    this.setData({
+      selectItem: item,
+    });
+  },
+
   // 点击添加按钮
   onTapEditItem(e) {
     wx.navigateTo({
@@ -76,17 +84,13 @@ Page({
 
   // 左滑菜单
   recordStart: function (e) {
-    const { item } = e.currentTarget.dataset;
-    // touch 开始，可以认为是一次点击
-    this.setData({
-      selectItem: item,
-    });
+    const { id } = e.currentTarget.dataset;
     // 记录 touch 事件
     recordStartX = e.touches[0].clientX;
-    currentOffsetX = item.id == this.data.mi ? this.data.mx : 0;
+    currentOffsetX = id == this.data.mi ? this.data.mx : 0;
     this.setData({
       moving: true,
-      mi: item.id,
+      mi: id,
       mx: 0,
     });
   },

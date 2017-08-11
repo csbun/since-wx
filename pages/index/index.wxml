@@ -1,4 +1,4 @@
-<view class="container page">
+<view class="container">
   <view class="banner">
     <view wx:if="{{selectItem && selectItem.id}}">
       <view class="page__title">
@@ -20,11 +20,11 @@
           <view style="{{eventItem.id === mi && moving && mx ? 'transition:null;':''}} transform: translate3d({{eventItem.id === mi ? -mx : 0}}px, 0, 0)"
                 class="list-item"
                 bindtouchstart="recordStart"
-                catchtouchmove="recordMove"
+                bindtouchmove="recordMove"
                 bindtouchend="recordEnd"
-                data-item="{{eventItem}}"
+                data-id="{{eventItem.id}}"
           >
-            <view class="list-item-main">
+            <view class="list-item-main" bindtap="onTapSelectItem" data-item="{{eventItem}}">
               <view class="weui-cell__hd list-item-day">
                 <template is="daysSince" data="{{...eventItem}}"/>
               </view>
@@ -35,7 +35,7 @@
             </view>
             <view class="list-item-buttons">
               <view class="edit" bindtap="onTapEditItem" data-id="{{eventItem.id}}">EDIT</view>
-              <view class="del" bindtap="onTapDelItem" data-id="{{eventItem.id}}">DEL</view>
+              <view class="del" bindtap="onTapDelItem" data-id="{{eventItem.id}}">DELETE</view>
             </view>
             <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
           </view>
@@ -54,8 +54,7 @@
 </template>
 
 <template name="sinceTill">
-  <view>
-    Since {{date}}
+  <view>Since {{date}}
     <text wx:if="{{stopTracking}}">/ Till {{endDate}}</text>
   </view>
 </template>
