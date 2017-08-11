@@ -14,6 +14,25 @@ export function get(id) {
   return wx.getStorageSync(`${STORAGE_KEY_ITEM}:${id}`);
 }
 
+export function update(item) {
+  if (item.id) {
+    wx.setStorageSync(`${STORAGE_KEY_ITEM}:${item.id}`, item);
+  }
+}
+
+export function del(id) {
+  const ids = getItemIds();
+  const index = ids.indexOf(id);
+  if (index >= 0) {
+    ids.splice(index, 1);
+    wx.setStorageSync(STORAGE_KEY_IDS, ids);
+    wx.removeStorage({
+      key: `${STORAGE_KEY_ITEM}:${id}`,
+    });
+  }
+  // todo
+}
+
 export function list() {
   // // Test data
   // return [{
@@ -53,13 +72,8 @@ export function push(item) {
   });
   // 添加
   const ids = getItemIds();
-  wx.setStorageSync(`${STORAGE_KEY_ITEM}:${id}`, newItem);
+  update(newItem);
   ids.push(id);
   wx.setStorageSync(STORAGE_KEY_IDS, ids);
   return id;
-}
-
-
-export function update(item) {
-  // TODO
 }

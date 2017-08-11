@@ -1,6 +1,9 @@
 <view class="page">
   <form bindsubmit="onTapSave" class="page__bd">
-    <view class="weui-cells__title">表单</view>
+    <view class="weui-cells__title">
+      <text wx:if="{{id}}">Edit</text>
+      <text wx:else>Add</text>
+    </view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
@@ -10,7 +13,7 @@
           <input class="weui-input" name="title" type="text" value="{{title}}" />
         </view>
       </view>
-      
+
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">Start Date</view>
@@ -46,7 +49,7 @@
         </view>
       </view>
     </view>
-    
+
     <view class="weui-toptips weui-toptips_warn" wx:if="{{error}}">{{error}}</view>
 
     <view class="weui-btn-area">

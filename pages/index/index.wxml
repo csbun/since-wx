@@ -1,6 +1,6 @@
 <view class="container page">
   <view class="banner">
-    <view wx:if="{{selectItem}}">
+    <view wx:if="{{selectItem && selectItem.id}}">
       <view class="page__title">
         <template is="daysSince" data="{{...selectItem}}"/>
       </view>
@@ -16,15 +16,29 @@
   <view class="list-view">
     <scroll-view scroll-y>
       <block wx:for="{{eventList}}" wx:for-item="eventItem" wx:key="{{eventItem.id}}">
-        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="onTabEventItem" bindlongtap="onTapEditItem" data-item="{{eventItem}}">
-          <view class="weui-cell__hd list-item-day">
-            <template is="daysSince" data="{{...eventItem}}"/>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view style="{{eventItem.id === mi && moving && mx ? 'transition:null;':''}} transform: translate3d({{eventItem.id === mi ? -mx : 0}}px, 0, 0)"
+                class="list-item"
+                bindtouchstart="recordStart"
+                catchtouchmove="recordMove"
+                bindtouchend="recordEnd"
+                data-item="{{eventItem}}"
+          >
+            <view class="list-item-main">
+              <view class="weui-cell__hd list-item-day">
+                <template is="daysSince" data="{{...eventItem}}"/>
+              </view>
+              <view class="weui-cell__bd">
+                <view>{{eventItem.title}}</view>
+                <template is="sinceTill" data="{{...eventItem}}"/>
+              </view>
+            </view>
+            <view class="list-item-buttons">
+              <view class="edit" bindtap="onTapEditItem" data-id="{{eventItem.id}}">EDIT</view>
+              <view class="del" bindtap="onTapDelItem" data-id="{{eventItem.id}}">DEL</view>
+            </view>
+            <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
           </view>
-          <view class="weui-cell__bd">
-            <view>{{eventItem.title}}</view>
-            <template is="sinceTill" data="{{...eventItem}}"/>
-          </view>
-          <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
         </view>
       </block>
     </scroll-view>
