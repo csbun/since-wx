@@ -21,7 +21,9 @@
                 class="list-item"
                 bindtouchstart="recordStart"
                 bindtouchmove="recordMove"
+                bindtouchcancel="recordEnd"
                 bindtouchend="recordEnd"
+                bindlongtap="onTapEditItem"
                 data-id="{{eventItem.id}}"
           >
             <view class="list-item-main" bindtap="onTapSelectItem" data-item="{{eventItem}}">
@@ -34,8 +36,8 @@
               </view>
             </view>
             <view class="list-item-buttons">
-              <view class="edit" bindtap="onTapEditItem" data-id="{{eventItem.id}}">EDIT</view>
               <view class="del" bindtap="onTapDelItem" data-id="{{eventItem.id}}">DELETE</view>
+              <!-- <view class="edit" bindtap="onTapEditItem" data-id="{{eventItem.id}}">EDIT</view> -->
             </view>
             <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
           </view>

@@ -1,8 +1,8 @@
 import { list, del } from '../../utils/event_store';
 import { daysSinceByItem } from '../../utils/calculator';
 
-const MAX_MX = 160;
-let recordStartX, currentOffsetX;
+const MAX_MX = 80;
+let recordStartX, recordStartY, currentOffsetX;
 
 //获取应用实例
 // var app = getApp();
@@ -14,10 +14,12 @@ Page({
     mx: 0,         // movetable-item translateX
     eventList: [],
     selectItem: undefined,
-    test: function() {
-      return 'testttt';
-    }
   },
+
+  onShow() {
+    this.setEventList();
+  },
+
   setEventList() {
     const eventList = list();
     const newData = {
@@ -37,21 +39,6 @@ Page({
       newData.selectItem = newData.eventList[0] || {};
     }
     this.setData(newData);
-  },
-
-  // onLoad() {
-  //   var that = this
-  //   //调用应用实例的方法获取全局数据
-  //   app.getUserInfo(function(userInfo) {
-  //     //更新数据
-  //     that.setData({
-  //       userInfo,
-  //     });
-  //   });
-  // },
-
-  onShow() {
-    this.setEventList();
   },
 
   // 点击 item
@@ -87,6 +74,7 @@ Page({
     const { id } = e.currentTarget.dataset;
     // 记录 touch 事件
     recordStartX = e.touches[0].clientX;
+    recordStartY = e.touches[0].clientY;
     currentOffsetX = id == this.data.mi ? this.data.mx : 0;
     this.setData({
       moving: true,
@@ -95,7 +83,18 @@ Page({
     });
   },
   recordMove: function (e) {
-    let mx = currentOffsetX + recordStartX - e.touches[0].clientX;
+    if (!this.data.moving) {
+      return;
+    }
+    // 如果大于 45° 就取消滑动
+    const dx = recordStartX - e.touches[0].clientX;
+    const dy = recordStartY - e.touches[0].clientY;
+    if (Math.abs(dy) > Math.abs(dx)) {
+      this.recordEnd();
+      return;
+    }
+    // 滑动
+    let mx = currentOffsetX + dx;
     if (mx < 0) {
       mx = 0;
     }
@@ -104,12 +103,10 @@ Page({
     }
     this.setData({ mx });
   },
-  recordEnd: function (e) {
+  recordEnd: function () {
     let { mx } = this.data;
-    if (mx <= MAX_MX/4) {
+    if (mx < MAX_MX*2/3) {
       mx = 0;
-    } else if (mx <= 3 * MAX_MX/5) {
-      mx = MAX_MX/2;
     } else {
       mx = MAX_MX;
     }

@@ -83,11 +83,11 @@
   color: #fff;
 }
 .list-view .weui-cell .list-item .list-item-buttons .edit {
-  float: left;
+  float: right;
   background-color: #337ab7;
 }
 .list-view .weui-cell .list-item .list-item-buttons .del {
-  float: right;
+  float: left;
   background-color: red;
 }
 /*按钮内部*/
@@ -106,6 +106,7 @@
 .bottom {
   margin-top: 8px;
 }
+
 
 /*
 @media all and (max-width: 640px) {
